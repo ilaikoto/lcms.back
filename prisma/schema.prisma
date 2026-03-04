@@ -12,17 +12,26 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["auth", "public"]
+  schemas  = ["auth"]
 }
 
 model User {
   id        Int      @id @default(autoincrement())
   email     String   @unique
   password  String
-  role      String
+  fullName  String
+  role      Role     @default(STAFF)
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 
   @@map("users")
+  @@schema("auth")
+}
+
+enum Role {
+  ADMIN
+  LAWYER
+  STAFF
+
   @@schema("auth")
 }
