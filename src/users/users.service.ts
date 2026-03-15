@@ -19,6 +19,7 @@ export class UsersService {
   async createUser(data: Prisma.UserCreateInput): Promise<Omit<User, 'password'>> {
     return this.prisma.user.create({
       data,
+      omit: { password: true },
     });
   }
 }
